@@ -23,6 +23,7 @@ public class Employee {
 
     @NotBlank(message = "Full name cannot be blank")
     @Column(nullable = false)
+
     private String fullName;
 
     @NotBlank(message = "Department cannot be blank")
