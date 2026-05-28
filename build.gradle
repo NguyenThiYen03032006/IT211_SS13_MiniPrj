@@ -5,24 +5,6 @@ plugins {
     id 'jacoco'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport
-}
-
-jacocoTestReport {
-
-    dependsOn test
-
-    reports {
-        html.required = true
-        html.outputLocation =
-                layout.buildDirectory.dir(
-                        "reports/jacocoHtml"
-                )
-    }
-}
-
 group = 'rikkei.edu'
 version = '0.0.1-SNAPSHOT'
 description = 'MiniProjectSS13'
@@ -37,20 +19,38 @@ repositories {
     mavenCentral()
 }
 
+jacoco {
+    toolVersion = "0.8.14"
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        html.required = true
+        html.outputLocation = layout.buildDirectory.dir("reports/jacoco")
+    }
+}
+
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'or.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation("org.springframework.boot:spring-boot-starter-aop:3.5.13")
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.aspectj:aspectjweaver'
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testCompileOnly 'org.projectlombok:lombok'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testAnnotationProcessor 'org.projectlombok:lombok'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

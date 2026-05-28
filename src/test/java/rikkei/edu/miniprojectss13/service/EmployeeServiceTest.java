@@ -80,7 +80,7 @@ class EmployeeServiceTest {
             employeeService.getById(999L);
         });
 
-        assertTrue(exception.getMessage().contains("không tìm thấy"));
+        assertTrue(exception.getMessage().contains("Không tìm thấy"));
         verify(employeeRepository, times(1)).findById(999L);
     }
 
